@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Новогодний кроссворд</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f8ff;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #d32f2f;
+    }
+    .crossword {
+      display: inline-block;
+      margin: 20px auto;
+      border: 2px solid #333;
+    }
+    .crossword td {
+      width: 30px;
+      height: 30px;
+      border: 1px solid #666;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: bold;
+      font-size: 16px;
+      background-color: #fff;
+    }
+    .black {
+      background-color: #000;
+    }
+    .legend {
+      margin-top: 20px;
+      text-align: left;
+      display: inline-block;
+      padding: 10px;
+      background-color: #e3f2fd;
+      border-radius: 8px;
+    }
+    .legend h2 {
+      margin-top: 0;
+    }
+    .legend ol {
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Новогодний кроссворд</h1>
+
+  <table class="crossword" cellpadding="0" cellspacing="0">
+    <!-- Сетка 12x12 -->
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td class="black"></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td class="black"></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td class="black"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td class="black"></td><td></td><td></td><td></td><td></td><td></td><td class="black"></td><td class="black"></td><td class="black"></td><td class="black"></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td class="black"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td class="black"></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+    <tr>
+      <td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td>
+    </tr>
+  </table>
+
+  <script>
+    // Слова и их позиции (row, col, direction: 'h' или 'v')
+    const words = [
+      { word: "ПОДАРОК", row: 0, col: 0, dir: 'h' },
+      { word: "МАНДАРИН", row: 2, col: 3, dir: 'h' },
+      { word: "СНЕГОВИК", row: 6, col: 0, dir: 'h' },
+      { word: "СНЕГ", row: 3, col: 7, dir: 'v' },
+      { word: "КУРАНТЫ", row: 5, col: 5, dir: 'h' },
+      { word: "СНЕЖИНКА", row: 0, col: 6, dir: 'v' },
+      { word: "ЕЛКА", row: 8, col: 2, dir: 'h' },
+      { word: "СНЕГУРОЧКА", row: 2, col: 2, dir: 'v' },
+      { word: "ЗВЕЗДА", row: 4, col: 8, dir: 'h' },
+      { word: "СНЕГОПАД", row: 3, col: 0, dir: 'v' }
+    ];
+
+    const table = document.querySelector('.crossword');
+    const rows = table.rows;
+
+    words.forEach(item => {
+      const word = item.word;
+      let r = item.row;
+      let c = item.col;
+      for (let i = 0; i < word.length; i++) {
+        if (item.dir === 'h') {
+          rows[r].cells[c + i].textContent = word[i];
+        } else {
+          rows[r + i].cells[c].textContent = word[i];
+        }
+      }
+    });
+  </script>
+
+  <div class="legend">
+    <h2>Слова в кроссворде:</h2>
+    <ol>
+      <li>Подарок</li>
+      <li>Мандарин</li>
+      <li>Снеговик</li>
+      <li>Снег</li>
+      <li>Куранты</li>
+      <li>Снежинка</li>
+      <li>Ёлка</li>
+      <li>Снегурочка</li>
+      <li>Звезда</li>
+      <li>Снегопад</li>
+    </ol>
+  </div>
+</body>
+</html>
