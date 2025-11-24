@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Christmas Crossword</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom, #e6f7ff, #ffebee);
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      color: #b71c1c;
+      text-shadow: 1px 1px 2px #fff;
+      margin-bottom: 20px;
+    }
+    .crossword {
+      display: inline-block;
+      margin: 20px auto;
+      border: 3px solid #01579b;
+      background-color: white;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    }
+    .crossword td {
+      width: 40px;
+      height: 40px;
+      border: 1px solid #424242;
+      text-align: center;
+      vertical-align: middle;
+      font-weight: bold;
+      font-size: 18px;
+      background-color: #ffffff;
+    }
+    .black {
+      background-color: #01579b;
+    }
+    .legend {
+      margin-top: 25px;
+      display: inline-block;
+      background: #e3f2fd;
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .legend h2 {
+      margin-top: 0;
+      color: #0288d1;
+    }
+    .legend ol {
+      text-align: left;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎄 Christmas Crossword Puzzle 🎁</h1>
+
+  <!-- Grid: 10x10 -->
+  <table class="crossword" id="grid" cellpadding="0" cellspacing="0">
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+    <tr><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td><td></td></tr>
+  </table>
+
+  <div class="legend">
+    <h2>Words to find:</h2>
+    <ol>
+      <li>Advent</li>
+      <li>Frost</li>
+      <li>Gift</li>
+      <li>Christmas</li>
+      <li>Carol</li>
+    </ol>
+  </div>
+
+  <script>
+    // Create empty 10x10 grid
+    const size = 10;
+    const grid = Array(size).fill().map(() => Array(size).fill(''));
+
+    // Words with positions and directions
+    // Format: { word, row, col, dir } — dir: 'h' (horizontal), 'v' (vertical)
+    const words = [
+      { word: "ADVENT",    row: 0, col: 2, dir: 'h' },     // 6 letters
+      { word: "FROST",     row: 2, col: 4, dir: 'h' },     // 5 letters
+      { word: "GIFT",      row: 4, col: 3, dir: 'v' },     // 4 letters (vertical)
+      { word: "CHRISTMAS", row: 6, col: 0, dir: 'h' },     // 9 letters
+      { word: "CAROL",     row: 1, col: 6, dir: 'v' }      // 5 letters
+    ];
+
+    // Fill the grid
+    words.forEach(item => {
+      const { word, row, col, dir } = item;
+      for (let i = 0; i < word.length; i++) {
+        if (dir === 'h') {
+          if (row < size && col + i < size) {
+            grid[row][col + i] = word[i];
+          }
+        } else if (dir === 'v') {
+          if (row + i < size && col < size) {
+            grid[row + i][col] = word[i];
+          }
+        }
+      }
+    });
+
+    // Render grid in HTML
+    const table = document.getElementById('grid');
+    for (let r = 0; r < size; r++) {
+      for (let c = 0; c < size; c++) {
+        table.rows[r].cells[c].textContent = grid[r][c] || '';
+      }
+    }
+  </script>
+</body>
+</html>
