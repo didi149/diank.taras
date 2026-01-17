@@ -3,24 +3,119 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>С Новым Годом! 🎅</title>
+  <title>Диана Тарас — Новогодний сайт</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Arial', sans-serif;
-      background: linear-gradient(135deg, #0c2e5c, #1a5f23);
-      color: white;
-      min-height: 100vh;
-      overflow-x: hidden;
-      position: relative;
+      padding: 0;
+      box-sizing: border-box;
     }
 
+    body {
+      background: linear-gradient(135deg, #0a2e4d, #0f4c32);
+      color: white;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      min-height: 100vh;
+      padding: 20px;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Гирлянда */
+    .garland {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 12px;
+      background: repeating-linear-gradient(
+        90deg,
+        #ff3333,
+        #ff3333 12px,
+        #33ff33 12px,
+        #33ff33 24px
+      );
+      z-index: 100;
+      animation: blink 1.2s infinite;
+    }
+
+    @keyframes blink {
+      0%, 49% { opacity: 1; }
+      50%, 100% { opacity: 0.4; }
+    }
+
+    /* Ёлочные шары */
+    .ornament {
+      position: fixed;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      z-index: 90;
+    }
+    .ornament:nth-child(1) { top: 20px; left: 20px; background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
+    .ornament:nth-child(2) { top: 30px; right: 30px; background: #4dff4d; box-shadow: 0 0 10px #4dff4d; }
+    .ornament:nth-child(3) { bottom: 30px; left: 30px; background: #4d4dff; box-shadow: 0 0 10px #4d4dff; }
+    .ornament:nth-child(4) { bottom: 20px; right: 20px; background: #ffff4d; box-shadow: 0 0 10px #ffff4d; }
+
+    /* Контент */
+    .container {
+      max-width: 700px;
+      margin: 60px auto 40px;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.25);
+      border-radius: 20px;
+      backdrop-filter: blur(5px);
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
+      position: relative;
+      z-index: 10;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2.4em;
+      margin-bottom: 30px;
+      color: #ffd700;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
+    }
+
+    .entry {
+      margin-bottom: 35px;
+      padding-bottom: 25px;
+      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .entry:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .date {
+      font-weight: bold;
+      font-size: 1.2em;
+      color: #ffcc00;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .content {
+      line-height: 1.6;
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 20px;
+      color: #ccc;
+      font-style: italic;
+    }
+
+    /* Снег */
     .snowflake {
-      position: absolute;
+      position: fixed;
       top: -20px;
       color: #fff;
       font-size: 1.2em;
-      text-shadow: 0 0 5px rgba(255,255,255,0.8);
+      text-shadow: 0 0 5px rgba(255,255,255,0.9);
       user-select: none;
       z-index: 1000;
       animation: fall linear forwards;
@@ -30,76 +125,6 @@
       to {
         transform: translateY(105vh) rotate(360deg);
       }
-    }
-
-    .container {
-      max-width: 800px;
-      margin: 40px auto;
-      padding: 20px;
-      text-align: center;
-      position: relative;
-      z-index: 10;
-    }
-
-    h1 {
-      font-size: 2.8em;
-      margin-bottom: 30px;
-      text-shadow: 0 0 10px gold;
-      color: #ffd700;
-    }
-
-    .entry {
-      background: rgba(0, 0, 0, 0.3);
-      border-radius: 15px;
-      padding: 20px;
-      margin-bottom: 25px;
-      box-shadow: 0 0 15px rgba(255,215,0,0.3);
-    }
-
-    .date {
-      font-weight: bold;
-      color: #ffcc00;
-    }
-
-    .ornament {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      border-radius: 50%;
-      z-index: 5;
-    }
-
-    .ornament:nth-child(1) { top: 10%; left: 5%; background: #ff4d4d; }
-    .ornament:nth-child(2) { top: 15%; right: 8%; background: #4dff4d; }
-    .ornament:nth-child(3) { bottom: 12%; left: 10%; background: #4d4dff; }
-    .ornament:nth-child(4) { bottom: 20%; right: 12%; background: #ffff4d; }
-
-    .garland {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 10px;
-      background: repeating-linear-gradient(
-        90deg,
-        #ff0000,
-        #ff0000 10px,
-        #00ff00 10px,
-        #00ff00 20px
-      );
-      z-index: 5;
-      animation: blink 1.5s infinite;
-    }
-
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.3; }
-    }
-
-    footer {
-      margin-top: 40px;
-      font-style: italic;
-      color: #ccc;
     }
   </style>
 </head>
@@ -117,53 +142,50 @@
     <h1>✨ С Новым 2026 годом! ✨</h1>
 
     <div class="entry">
-      <div class="date">6 декабря, 2025</div>
+      <span class="date">6 декабря, 2025</span>
     </div>
 
     <div class="entry">
-      <div class="date">15 октября, 2025</div>
-      <p>Я сделала Новогодние кроссворды для сайта</p>
+      <span class="date">15 октября, 2025</span>
+      <div class="content">Я сделала Новогодние кроссворды для сайта</div>
     </div>
 
     <div class="entry">
-      <div class="date">1 сентября, 2025</div>
-      <p>Путешествие в тысячу миль начинается с одного шага (Лао Цзы)<br>
-         Оставляю в прошлом скучную неинтересную локальную файловую систему ради Всемирной паутины.</p>
+      <span class="date">1 сентября, 2025</span>
+      <div class="content">
+        Путешествие в тысячу миль начинается с одного шага (Лао Цзы)<br>
+        Оставляю в прошлом скучную неинтересную локальную файловую систему ради Всемирной паутины.
+      </div>
     </div>
 
     <footer>
-      Пусть 2026 год принесёт тебе вдохновение, радость и уют! 🎄🎅
+      Пусть Новый год принесёт вдохновение, тепло и чудо! 🎄🎅
     </footer>
   </div>
 
   <script>
     // Снегопад
-    function createSnowflakes() {
-      const snowContainer = document.body;
+    function createSnow() {
       const flakes = ['❄', '❅', '❆'];
+      const snow = document.createElement('div');
+      snow.classList.add('snowflake');
+      snow.innerHTML = flakes[Math.floor(Math.random() * flakes.length)];
+      snow.style.left = Math.random() * 100 + 'vw';
+      snow.style.opacity = Math.random() * 0.7 + 0.3;
+      snow.style.fontSize = (Math.random() * 1.2 + 0.8) + 'em';
+      snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
+      document.body.appendChild(snow);
 
-      setInterval(() => {
-        const snowflake = document.createElement('div');
-        snowflake.classList.add('snowflake');
-        snowflake.innerHTML = flakes[Math.floor(Math.random() * flakes.length)];
-        snowflake.style.left = Math.random() * 100 + 'vw';
-        snowflake.style.opacity = Math.random() * 0.7 + 0.3;
-        snowflake.style.fontSize = (Math.random() * 1 + 0.8) + 'em';
-        snowflake.style.animationDuration = (Math.random() * 5 + 5) + 's';
-
-        snowContainer.appendChild(snowflake);
-
-        // Удалить после анимации
-        setTimeout(() => {
-          snowflake.remove();
-        }, 10000);
-      }, 300);
+      // Удалить после падения
+      setTimeout(() => snow.remove(), 10000);
     }
 
-    window.onload = createSnowflakes;
+    // Запуск снега
+    setInterval(createSnow, 300);
   </script>
 </body>
 </html>
+
 <html lang="ru">
 <head>
     <title>Мой блог</title>
