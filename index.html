@@ -1,23 +1,562 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<p>
-   <head>
-     <link href="https://fonts.googleapis.com/css2?family=Pudelinka&display=swap" rel="stylesheet">
-<style>
-  body { font-family: 'Pudelinka', sans-serif; }
-
-   /* Тёмный фон для контраста с белым текстом */
-        white-text-block {
-            background-color: #ffffff;           
-            padding: 20px;
-            border-radius: 8px;
-            font-family: sans-serif;
-            line-height: 1.6;
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Summer Theme 🏖️</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
         }
 
-     
-</style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 25%, #f093fb 50%, #f5576c 75%, #ffd89b 100%);
+            background-attachment: fixed;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Плавающие элементы */
+        .floating-emoji {
+            position: fixed;
+            font-size: 40px;
+            opacity: 0.4;
+            pointer-events: none;
+            z-index: 1000;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+
+        /* Шапка */
+        .header {
+            background: linear-gradient(90deg, #ff6b6b 0%, #feca57 50%, #48dbfb 100%);
+            padding: 16px 32px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+            position: relative;
+            z-index: 100;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .logo {
+            font-size: 32px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .search-box {
+            background: rgba(255,255,255,0.9);
+            border: 2px solid #fff;
+            border-radius: 6px;
+            padding: 8px 16px;
+            width: 300px;
+            font-size: 14px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 24px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .nav-links a:hover {
+            transform: scale(1.1);
+        }
+
+        /* Основной контент */
+        .container {
+            max-width: 1280px;
+            margin: 32px auto;
+            padding: 0 24px;
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 24px;
+        }
+
+        /* Боковая панель */
+        .sidebar {
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .profile-section {
+            text-align: center;
+            margin-bottom: 24px;
+        }
+
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            border: 4px solid #feca57;
+            margin-bottom: 12px;
+            object-fit: cover;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .username {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ff6b6b;
+            margin-bottom: 4px;
+        }
+
+        .bio {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+            padding: 16px 0;
+            border-top: 2px solid #ffe4cc;
+            border-bottom: 2px solid #ffe4cc;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #ff6b6b;
+            font-size: 18px;
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: #999;
+        }
+
+        /* Основной блок */
+        .main-content {
+            background: rgba(255,255,255,0.95);
+            border-radius: 12px;
+            padding: 24px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+        }
+
+        .tabs {
+            display: flex;
+            gap: 8px;
+            border-bottom: 3px solid #ffd700;
+            margin-bottom: 24px;
+        }
+
+        .tab {
+            padding: 12px 20px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            color: #666;
+            border-bottom: 3px solid transparent;
+            margin-bottom: -3px;
+            transition: all 0.3s;
+        }
+
+        .tab.active {
+            color: #ff6b6b;
+            border-bottom-color: #ff6b6b;
+        }
+
+        .tab:hover {
+            color: #feca57;
+        }
+
+        /* Репозитории */
+        .repo-card {
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe4cc 100%);
+            border: 2px solid #ffd700;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 16px;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .repo-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.4);
+            background: linear-gradient(135deg, #ffe4cc 0%, #ffd700 100%);
+        }
+
+        .repo-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .repo-name {
+            font-size: 20px;
+            font-weight: bold;
+            color: #0077b6;
+            text-decoration: none;
+        }
+
+        .repo-name:hover {
+            text-decoration: underline;
+        }
+
+        .badge {
+            background: linear-gradient(135deg, #ff6b6b, #feca57);
+            color: white;
+            padding: 2px 10px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .repo-description {
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .repo-meta {
+            display: flex;
+            gap: 20px;
+            font-size: 13px;
+            color: #666;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .language-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            display: inline-block;
+        }
+
+        .python { background: #3776ab; }
+        .javascript { background: #f7df1e; }
+        .html { background: #e34c26; }
+
+        /* Кнопки */
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #ff6b6b, #feca57);
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .btn-secondary {
+            background: white;
+            border: 2px solid #ffd700;
+            color: #ff6b6b;
+        }
+
+        .btn-secondary:hover {
+            background: #fff5e6;
+        }
+
+        /* Пляжная сцена */
+        .beach-scene {
+            background: linear-gradient(180deg, #87CEEB 0%, #E0F6FF 50%, #FFE4B5 100%);
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+
+        .beach-emoji {
+            font-size: 80px;
+            margin: 10px;
+            display: inline-block;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .welcome-text {
+            font-size: 32px;
+            color: #ff6b6b;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(255,255,255,0.8);
+            margin-bottom: 16px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #0077b6;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            
+            .header {
+                flex-direction: column;
+                gap: 16px;
+            }
+            
+            .search-box {
+                width: 100%;
+            }
+        }
+
+        /* Волны */
+        .wave {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2348dbfb" fill-opacity="0.3" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,112C672,96,768,96,864,112C960,128,1056,160,1152,165.3C1248,171,1344,149,1392,138.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            z-index: 999;
+            pointer-events: none;
+        }
+    </style>
+</head>
+<body>
+    <!-- Плавающие эмодзи -->
+    <div class="floating-emoji" style="top: 15%; left: 5%;">☀️</div>
+    <div class="floating-emoji" style="top: 25%; right: 5%; animation-delay: 1s;">🌊</div>
+    <div class="floating-emoji" style="bottom: 20%; left: 8%; animation-delay: 2s;">🏖️</div>
+    <div class="floating-emoji" style="bottom: 30%; right: 3%; animation-delay: 3s;">🌴</div>
+    <div class="floating-emoji" style="top: 50%; left: 2%; animation-delay: 4s;">🐚</div>
+
+    <!-- Шапка -->
+    <header class="header">
+        <div class="header-left">
+            <a href="#" class="logo">
+                <span>🏖️</span>
+                <span>GitHub</span>
+                <span>☀️</span>
+            </a>
+            <input type="text" class="search-box" placeholder="🔍 Поиск по летним репозиториям...">
+        </div>
+        <nav class="nav-links">
+            <a href="#">📦 Репозитории</a>
+            <a href="#">👥 Участники</a>
+            <a href="#">🌟 Избранное</a>
+            <a href="#">👤 Профиль</a>
+        </nav>
+    </header>
+
+    <!-- Основной контент -->
+    <div class="container">
+        <!-- Боковая панель -->
+        <aside class="sidebar">
+            <div class="profile-section">
+                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Summer" alt="Avatar" class="avatar">
+                <div class="username">SummerCoder</div>
+                <div class="bio">️ Люблю кодить на пляже<br>☀️ Summer enthusiast</div>
+            </div>
+            
+            <div class="stats">
+                <div class="stat-item">
+                    <div class="stat-value">42</div>
+                    <div class="stat-label">репозитория</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">128</div>
+                    <div class="stat-label">подписчика</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-value">86</div>
+                    <div class="stat-label">подписок</div>
+                </div>
+            </div>
+
+            <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;">
+                ☀️ Новый репозиторий
+            </button>
+            <button class="btn btn-secondary" style="width: 100%;">
+                🏖️ Профиль
+            </button>
+        </aside>
+
+        <!-- Основной блок -->
+        <main class="main-content">
+            <!-- Пляжная сцена -->
+            <div class="beach-scene">
+                <div class="welcome-text">Добро пожаловать на летний GitHub! 🌊</div>
+                <div class="subtitle">Отдыхай и коди с удовольствием ☀️🏖️🌴</div>
+                <div style="margin-top: 20px;">
+                    <span class="beach-emoji">🏖️</span>
+                    <span class="beach-emoji">☀️</span>
+                    <span class="beach-emoji">🌊</span>
+                    <span class="beach-emoji">🌴</span>
+                    <span class="beach-emoji">🐚</span>
+                </div>
+            </div>
+
+            <!-- Табы -->
+            <div class="tabs">
+                <button class="tab active">📦 Репозитории</button>
+                <button class="tab">⭐ Избранное</button>
+                <button class="tab">📦 Проекты</button>
+                <button class="tab">📝 Статьи</button>
+            </div>
+
+            <!-- Репозитории -->
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="#" class="repo-name">summer-vacation-planner</a>
+                    <span class="badge">Public</span>
+                </div>
+                <div class="repo-description">
+                    🏖️ Планировщик летнего отпуска с рекомендациями пляжей и курортов. 
+                    Включает прогноз погоды и лучшие места для сёрфинга! 🌊
+                </div>
+                <div class="repo-meta">
+                    <span class="meta-item">
+                        <span class="language-dot python"></span>
+                        Python
+                    </span>
+                    <span class="meta-item">⭐ 234</span>
+                    <span class="meta-item">🍴 45</span>
+                    <span class="meta-item">🕒 Обновлено 2 часа назад</span>
+                </div>
+            </div>
+
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="#" class="repo-name">beach-photo-editor</a>
+                    <span class="badge">Public</span>
+                </div>
+                <div class="repo-description">
+                    📸 Редактор фото с пляжными фильтрами и эффектами заката. 
+                    Добавляйте пальмы, зонтики и морские волны на ваши фото! ☀️
+                </div>
+                <div class="repo-meta">
+                    <span class="meta-item">
+                        <span class="language-dot javascript"></span>
+                        JavaScript
+                    </span>
+                    <span class="meta-item">⭐ 189</span>
+                    <span class="meta-item">🍴 32</span>
+                    <span class="meta-item">🕒 Обновлено вчера</span>
+                </div>
+            </div>
+
+            <div class="repo-card">
+                <div class="repo-header">
+                    <a href="#" class="repo-name">tropical-weather-api</a>
+                    <span class="badge">Public</span>
+                </div>
+                <div class="repo-description">
+                    🌡️ API для получения погоды на тропических курортах. 
+                    Температура воды, УФ-индекс и прогноз волн для сёрферов! 🏄
+                </div>
+                <div class="repo-meta">
+                    <span class="meta-item">
+                        <span class="language-dot html"></span>
+                        HTML/CSS
+                    </span>
+                    <span class="meta-item">⭐ 156</span>
+                    <span class="meta-item">🍴 28</span>
+                    <span class="meta-item">🕒 Обновлено 3 дня назад</span>
+                </div>
+            </div>
+
+            <div style="text-align: center; margin-top: 24px;">
+                <button class="btn btn-primary">Загрузить ещё репозитории 🌊</button>
+            </div>
+        </main>
+    </div>
+
+    <!-- Волны внизу -->
+    <div class="wave"></div>
+
+    <script>
+        // Интерактивность табов
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', function() {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+
+        // Анимация при наведении на репозитории
+        document.querySelectorAll('.repo-card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-5px) scale(1.02)';
+            });
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(0) scale(1)';
+            });
+        });
+
+        // Случайное перемещение плавающих эмодзи
+        setInterval(() => {
+            const emojis = document.querySelectorAll('.floating-emoji');
+            emojis.forEach(emoji => {
+                const randomX = (Math.random() - 0.5) * 20;
+                const randomY = (Math.random() - 0.5) * 20;
+                emoji.style.transform = `translate(${randomX}px, ${randomY}px) rotate(${Math.random() * 20 - 10}deg)`;
+            });
+        }, 3000);
+    </script>
+</body>
+</html>
    <body> 
       <h2> 3 июня </h2>
       <a href="newfile_1.kum">КУМИР</a>
@@ -74,187 +613,7 @@ Pekingese: 0.66%</p>
        шифр:НЪЭЧИВФТЧК. <\>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
 
-    body {
-      background: linear-gradient(135deg, #0a2e4d, #0f4c32);
-      color: white;
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      min-height: 100vh;
-      padding: 20px;
-      position: relative;
-      overflow-x: hidden;
-    }
-
-    /* Гирлянда */
-    .garland {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 12px;
-      background: repeating-linear-gradient(
-        90deg,
-        #ff3333,
-        #ff3333 12px,
-        #33ff33 12px,
-        #33ff33 24px
-      );
-      z-index: 100;
-      animation: blink 1.2s infinite;
-    }
-
-    @keyframes blink {
-      0%, 49% { opacity: 1; }
-      50%, 100% { opacity: 0.4; }
-    }
-
-    /* Ёлочные шары */
-    .ornament {
-      position: fixed;
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      z-index: 90;
-    }
-    .ornament:nth-child(1) { top: 20px; left: 20px; background: #ff4d4d; box-shadow: 0 0 10px #ff4d4d; }
-    .ornament:nth-child(2) { top: 30px; right: 30px; background: #4dff4d; box-shadow: 0 0 10px #4dff4d; }
-    .ornament:nth-child(3) { bottom: 30px; left: 30px; background: #4d4dff; box-shadow: 0 0 10px #4d4dff; }
-    .ornament:nth-child(4) { bottom: 20px; right: 20px; background: #ffff4d; box-shadow: 0 0 10px #ffff4d; }
-
-    /* Контент */
-    .container {
-      max-width: 700px;
-      margin: 60px auto 40px;
-      padding: 25px;
-      background: rgba(0, 0, 0, 0.25);
-      border-radius: 20px;
-      backdrop-filter: blur(5px);
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.2);
-      position: relative;
-      z-index: 10;
-    }
-
-    h1 {
-      text-align: center;
-      font-size: 2.4em;
-      margin-bottom: 30px;
-      color: #ffd700;
-      text-shadow: 0 0 12px rgba(255, 215, 0, 0.8);
-    }
-
-    .entry {
-      margin-bottom: 35px;
-      padding-bottom: 25px;
-      border-bottom: 1px dashed rgba(255, 255, 255, 0.2);
-    }
-
-    .entry:last-child {
-      border-bottom: none;
-      margin-bottom: 0;
-      padding-bottom: 0;
-    }
-
-    .date {
-      font-weight: bold;
-      font-size: 1.2em;
-      color: #ffcc00;
-      margin-bottom: 10px;
-      display: block;
-    }
-
-    .content {
-      line-height: 1.6;
-    }
-
-    footer {
-      text-align: center;
-      margin-top: 20px;
-      color: #ccc;
-      font-style: italic;
-    }
-
-    /* Снег */
-    .snowflake {
-      position: fixed;
-      top: -20px;
-      color: #fff;
-      font-size: 1.2em;
-      text-shadow: 0 0 5px rgba(255,255,255,0.9);
-      user-select: none;
-      z-index: 1000;
-      animation: fall linear forwards;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(105vh) rotate(360deg);
-      }
-    }
-  </style>
-</head>
-<body>
-  <!-- Гирлянда -->
-  <div class="garland"></div>
-
-  <!-- Ёлочные шары -->
-  <div class="ornament"></div>
-  <div class="ornament"></div>
-  <div class="ornament"></div>
-  <div class="ornament"></div>
-
-  <div class="container">
-    <h1>✨ С Новым 2026 годом! ✨</h1>
-
-    <div class="entry">  24 декабря
-      <span class="date">6 декабря, 2025</span>
-    </div>
-
-    <div class="entry">
-      <span class="date">15 октября, 2025</span>
-      <div class="content">Я сделала Новогодние кроссворды для сайта</div>
-    </div>
-
-    <div class="entry">
-      <span class="date">1 сентября, 2025</span>
-      <div class="content">
-        Путешествие в тысячу миль начинается с одного шага (Лао Цзы)<br>
-        Оставляю в прошлом скучную неинтересную локальную файловую систему ради Всемирной паутины.
-      </div>
-    </div>
-
-    <footer>
-      Пусть Новый год принесёт вдохновение, тепло и чудо! 🎄🎅
-    </footer>
-  </div>
-
-  <script>
-    // Снегопад
-    function createSnow() {
-      const flakes = ['❄', '❅', '❆'];
-      const snow = document.createElement('div');
-      snow.classList.add('snowflake');
-      snow.innerHTML = flakes[Math.floor(Math.random() * flakes.length)];
-      snow.style.left = Math.random() * 100 + 'vw';
-      snow.style.opacity = Math.random() * 0.7 + 0.3;
-      snow.style.fontSize = (Math.random() * 1.2 + 0.8) + 'em';
-      snow.style.animationDuration = (Math.random() * 5 + 5) + 's';
-      document.body.appendChild(snow);
-
-      // Удалить после падения
-      setTimeout(() => snow.remove(), 10000);
-    }
-
-    // Запуск снега
-    setInterval(createSnow, 300);
-  </script>
-</body>
-</html>
 
 <html lang="ru">
 <head>
